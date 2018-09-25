@@ -1,0 +1,13 @@
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\plugin_FlexibleGames.AdvancedQuarrys.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\plugin_FlexibleGames.AdvancedQuarrys.pdb
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\Assembly-CSharp.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\UnityEngine.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\Assembly-CSharp-firstpass.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\Assembly-UnityScript-firstpass.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\Ionic.Zip.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\Boo.Lang.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\UnityScript.Lang.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\obj\Release\plugin_FlexibleGames.AdvancedQuarrys.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\obj\Release\plugin_FlexibleGames.AdvancedQuarrys.pdb
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\bin\Release\UnityEngine.UI.dll
+C:\_Programming\FlexibleGames.AdvancedQuarrys\FlexibleGames.AdvancedQuarrys\obj\Release\FlexibleGames.AdvancedQuarrys.csprojResolveAssemblyReference.cache
