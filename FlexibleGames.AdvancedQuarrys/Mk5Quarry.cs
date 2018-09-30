@@ -1567,8 +1567,11 @@ class Mk5Quarry : MachineEntity, PowerConsumerInterface
             }
         }
         else if (lCube == eCubeTypes.HardenedResin || lCube == eCubeTypes.AblatedResin)
+	{
+	//Set Cube Type to Hardened Resin as that block type the Config checks against for Resin, otherwise it would skip the AblatedResin.
+            lCube=eCubeTypes.HardenedResin; 
             curCubeType = DigCubeType.Resin;
-
+	}
         else if (lCube == eCubeTypes.Uranium_T7)
             curCubeType = DigCubeType.Uranium;
 
@@ -1590,15 +1593,18 @@ class Mk5Quarry : MachineEntity, PowerConsumerInterface
             }
 
             WorldScript.instance.BuildFromEntity(checkSegment, checkX, checkY, checkZ, mReplaceType, TerrainData.GetDefaultValue(mReplaceType));
+
+            mnTotalNonOreCubes++;
+            MoveToNextCube();
+            mrCurrentDigCost = (this.mrBaseDigCost + Depth);
+            mrCurrentPower -= mrCurrentDigCost;
             if (mbMineGarbage && curCubeType == DigCubeType.Garbage)
             {
                 mCarryCube = lCube;
-            }
-            mnTotalNonOreCubes++;
-            MoveToNextCube();
+                lCube = eCubeTypes.NULL;
+                return false; //Re-ordered some of the code to take into account need to return False to unload block when mining Garbage
+            }	    
             lCube = eCubeTypes.NULL;
-            mrCurrentDigCost = (this.mrBaseDigCost + Depth);
-            mrCurrentPower -= mrCurrentDigCost;
             return true;        
         }
         else if (curCubeType == DigCubeType.Ore || curCubeType == DigCubeType.T4 || curCubeType == DigCubeType.Uranium)
@@ -1616,8 +1622,9 @@ class Mk5Quarry : MachineEntity, PowerConsumerInterface
                 otherError = true;
                 return false;
             }
-            // check our mine types            
-            if (!lbDoMineAll || (lCube != msMine1 && lCube != msMine2 && lCube != msMine3 && lCube != msMine4 && lCube != msMine5 && lCube != msMine6 && lCube != msMine7 && lCube != msMine8))
+            // check our mine types
+	    //Changed from || to &&.  Otherwise would have to have AllOre set and the Ore type to avoid skiping the block.
+            if (!lbDoMineAll && (lCube != msMine1 && lCube != msMine2 && lCube != msMine3 && lCube != msMine4 && lCube != msMine5 && lCube != msMine6 && lCube != msMine7 && lCube != msMine8))
             {
                 this.miTotalBlocksIgnored++;
                 // check DoDestroy...
@@ -1669,6 +1676,7 @@ class Mk5Quarry : MachineEntity, PowerConsumerInterface
                 mnTotalOreCubes++;
                 WorldScript.instance.BuildFromEntity(checkSegment, checkX, checkY, checkZ, mReplaceType, TerrainData.GetDefaultValue(mReplaceType));
                 MoveToNextCube();
+		mCarryCube = lCube; //The last bit of Ore in the block still needs to be unloaded otherwise would just delete that last bit.
                 mrCurrentDigCost = (this.mrBaseDigCost + Depth);
                 mrCurrentPower -= mrCurrentDigCost;
             }
@@ -1688,6 +1696,7 @@ class Mk5Quarry : MachineEntity, PowerConsumerInterface
             }
 
             // power is good... do we want it?
+	    //The Change above setting the lCube to eCubeTypes.HardenedResin for Resin type blocks, will have this check work on both Hardened Resin and Ablated Resin, before it would skip the ablated Resin.
             if (lCube != msMine1 && lCube != msMine2 && lCube != msMine3 && lCube != msMine4 && lCube != msMine5 && lCube != msMine6 && lCube != msMine7 && lCube != msMine8)
             {
                 // we don't want it, do we destroy it?
@@ -1727,7 +1736,7 @@ class Mk5Quarry : MachineEntity, PowerConsumerInterface
 
                 mCarryCube = eCubeTypes.AblatedResin;
                 mCarryValue = 2;
-                return true;
+                return false;  //Per how statement works, needs to return false so that the Resin can be unloaded to hopper. otherwise it never unloads the Resin and continues the loop checking the next block.
             }
         }
         mCarryCube = lCube;
